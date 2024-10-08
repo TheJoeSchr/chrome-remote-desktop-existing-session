@@ -6,6 +6,7 @@
 # Contributor: Mateus Rodrigues Costa <charles [dot] costar [at] gmail [dot] com>
 
 pkgname=chrome-remote-desktop-existing-session
+_pkgname=chrome-remote-desktop
 pkgver=130.0.6723.14
 pkgrel=1
 pkgdesc="Access other computers or allow another user to access your computer securely over the Internet. Patched to allow connections to the existing X session."
@@ -13,10 +14,11 @@ arch=("x86_64")
 url="https://remotedesktop.google.com"
 license=("BSD")
 depends=("gtk3" "libutempter" "libxss" "nss" "python-packaging" "python-psutil" "python-pyxdg" "xf86-video-dummy" "xorg-xhost" "xorg-server-xvfb" "xorg-setxkbmap" "xorg-xauth" "xorg-xdpyinfo" "xorg-xrandr")
-install="${pkgname}.install"
+conflicts=("${_pkgname}" "${_pkgname}-bin")
+install="${_pkgname}.install"
 source=(
-  "${pkgname}-${pkgver}.deb::https://dl.google.com/linux/${pkgname}/deb/pool/main/${pkgname:0:1}/${pkgname}/${pkgname}_${pkgver}_amd64.deb"
-  "${pkgname}.service"
+  "${_pkgname}-${pkgver}.deb::https://dl.google.com/linux/${_pkgname}/deb/pool/main/${_pkgname:0:1}/${_pkgname}/${_pkgname}_${pkgver}_amd64.deb"
+  "${_pkgname}.service"
   "pamrule"
   "crd"
   "xdg-base-directory.patch"
@@ -58,10 +60,10 @@ package() {
   install -d "${pkgdir}/opt"
   cp -r "${srcdir}/etc/"* "${pkgdir}/etc"
   cp -r "${srcdir}/opt/"* "${pkgdir}/opt"
-  install -Dm644 "${srcdir}/usr/share/doc/${pkgname}/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/copyright"
-  install -Dm644 "${srcdir}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/user/${pkgname}.service"
-  install -Dm644 "${srcdir}/lib/systemd/system/${pkgname}@.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}@.service"
-  install -Dm644 "${srcdir}/pamrule" "${pkgdir}/etc/pam.d/${pkgname}"
+  install -Dm644 "${srcdir}/usr/share/doc/${_pkgname}/copyright" "${pkgdir}/usr/share/licenses/${_pkgname}/copyright"
+  install -Dm644 "${srcdir}/${_pkgname}.service" "${pkgdir}/usr/lib/systemd/user/${_pkgname}.service"
+  install -Dm644 "${srcdir}/lib/systemd/system/${_pkgname}@.service" "${pkgdir}/usr/lib/systemd/system/${_pkgname}@.service"
+  install -Dm644 "${srcdir}/pamrule" "${pkgdir}/etc/pam.d/${_pkgname}"
   install -Dm755 "${srcdir}/crd" "${pkgdir}/usr/bin/crd"
   install -dm755 "${pkgdir}/etc/chromium/native-messaging-hosts"
   
@@ -71,5 +73,5 @@ package() {
       ln -s "/etc/opt/chrome/native-messaging-hosts/${_filename}" "${pkgdir}/etc/chromium/native-messaging-hosts/${_filename}"
     fi
   done
-  chmod u+s "${pkgdir}/opt/google/${pkgname}/user-session"
+  chmod u+s "${pkgdir}/opt/google/${_pkgname}/user-session"
 }
