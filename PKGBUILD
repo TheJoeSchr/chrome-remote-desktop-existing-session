@@ -7,7 +7,7 @@
 
 pkgname=chrome-remote-desktop-existing-session
 _pkgname=chrome-remote-desktop
-pkgver=130.0.6723.14
+pkgver=142.0.7444.18
 pkgrel=1
 pkgdesc="Access other computers or allow another user to access your computer securely over the Internet. Patched to allow connections to the existing X session."
 arch=("x86_64")
@@ -25,7 +25,7 @@ source=(
   "use_existing_session.patch"
 )
 sha256sums=(
-  "20a70b57c56eefcbf791bdaabda510fedd801c9e50985a5eecaae001730fdad7"
+  "b64d5283cf1af3259c6c1026a60b3061948fb5cdfbcd44250541dc66a42630c0"
   "e5da5ae89b5bc599f72f415d1523341b25357931b0de46159fce50ab83615a4b"
   "fcc38269eb1cc902abff9688eda9377a22367e39b9f111f87c0dd8e77adb82e2"
   "021110f49d465294517eec92eeb24ebca41e264ef33cbdda78732add1f269d02"
